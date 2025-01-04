@@ -1,10 +1,9 @@
-
 import requests
-
+API_KEY = '7JF2DdFDXolVEXVZEbe9pQ==S3VCmf2H6zPX1cvn'
 
 def load_data(name):
     api_url = 'https://api.api-ninjas.com/v1/animals?name={}'.format(name)
-    response = requests.get(api_url, headers={'X-Api-Key': '7JF2DdFDXolVEXVZEbe9pQ==S3VCmf2H6zPX1cvn'})
+    response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
     if response.status_code == requests.codes.ok:
         animal_data = response.json()
         if not animal_data:  # Check if the response is empty
