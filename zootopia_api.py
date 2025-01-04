@@ -8,7 +8,11 @@ def load_data(name):
     response = requests.get(api_url, headers={'X-Api-Key': '7JF2DdFDXolVEXVZEbe9pQ==S3VCmf2H6zPX1cvn'})
     if response.status_code == requests.codes.ok:
         animal_data = response.json()
-        return animal_data
+        if not animal_data:  # Check if the response is empty
+            print(f"The animal {name} doesn't exist.")
+            return None
+        else:
+            return animal_data
 
     else:
         print("Error:", response.status_code, response.text)
@@ -32,6 +36,10 @@ def serialize_animal(animal):
     return output_data_of_animals
 
 def animal_details(animals_data):
+    if not animals_data:
+        # Return a placeholder message if no data is available
+        return '<li class="cards__item"><div class="card__title">Animal data not found.</div></li>'
+
     output = ""
     for animal_obj in animals_data:
         output += serialize_animal(animal_obj)
