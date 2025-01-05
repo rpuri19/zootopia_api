@@ -1,25 +1,31 @@
 import data_fetcher
 
 def serialize_animal(animal):
+    """Converts an individual animal's data into an HTML <li> element.
+    Handles name, diet, type, and location."""
     output_data_of_animals = ""
-    animal_name = animal["name"]
+    animal_name = animal.get("name", "Unknown")
     characteristics = animal["characteristics"]
-    animal_type = characteristics.get("type")
-    animal_diet = characteristics.get("diet")
+    animal_type = characteristics.get("type",  "Unknown")
+    animal_diet = characteristics.get("diet",  "Unknown")
     first_location = animal.get("locations")[0]
-    output_data_of_animals += '<li class="cards__item">\n'
-    output_data_of_animals += f'<div class="card__title">{animal_name}</div>\n'
-    output_data_of_animals += f'<p class="card__text">\n'
-    output_data_of_animals += f'<strong>Diet:</strong> {animal_diet}<br/>\n'
-    output_data_of_animals += f'<strong>Location:</strong> {first_location}<br/>\n'
-    output_data_of_animals += f'<strong>Type:</strong> {animal_type}<br/>\n'
-    output_data_of_animals += '</p>'
-    output_data_of_animals += '</li>'
+    output_data_of_animals += (
+        '<li class="cards__item">\n'
+        f'<div class="card__title">{animal_name}</div>\n'
+        f'<p class="card__text">\n'
+        f'<strong>Diet:</strong> {animal_diet}<br/>\n'
+        f'<strong>Location:</strong> {first_location}<br/>\n'
+        f'<strong>Type:</strong> {animal_type}<br/>\n'
+        '</p>'
+        '</li>'
+    )
+
     return output_data_of_animals
 
 def animal_details(animals_data):
+    """Iterates through a list of animal data and generates HTML for each.
+    Provides a default message when no data is available."""
     if not animals_data:
-        # Return a placeholder message if no data is available
         return '<li class="cards__item"><div class="card__title">Animal data not found.</div></li>'
 
     output = ""
@@ -29,13 +35,12 @@ def animal_details(animals_data):
 
 
 def replace_data_in_html (data):
-    # Open the HTML file
+    """Replaces a placeholder (__REPLACE_ANIMALS_INFO__) in a template HTML file with the generated animal data.
+    Writes the updated HTML to a new file."""
     with open('animals_template.html', 'r') as file:
-        # Read the file's contents
         html_content = file.read()
 
     new_output = html_content.replace("__REPLACE_ANIMALS_INFO__", f"{data}")
-    #print(new_output)
 
     with open('animals.html', 'w') as output_file:
         output_file.write(new_output)

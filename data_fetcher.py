@@ -11,8 +11,7 @@ def load_data(name):
     if response.status_code == requests.codes.ok:
         animal_data = response.json()
         if not animal_data:  # Check if the response is empty
-            print(f"The animal {name} doesn't exist.")
-            return None
+            print (f"The animal {name} doesn't exist.")
         else:
             return animal_data
 
