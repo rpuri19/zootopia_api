@@ -13,3 +13,8 @@ To use this project, run **animals_web_generator.py**
 Please note an API key is needed.
 
 :)
+
+example screenshots: 
+![Alt Text](images/enter_name.png)
+
+![Alt Text](images/result_html_page.png)
